@@ -1,0 +1,22 @@
+---
+layout: layout.pug
+//- title: "Hello"
+---
+
+.project
+    .project-image
+        .image(style=`background-image: url(../../images/projects/${image})`)
+    .project-desc
+        h1=title
+
+        p !{content}
+
+        h3 Tech:
+
+        p=tech
+
+        .links
+            a(href=demo).button Demo
+            a(href=github).button GitHub
+
+    

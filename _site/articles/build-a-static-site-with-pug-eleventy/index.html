@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title>Build a static site with Pug &amp; Eleventy</title><link rel="stylesheet" href="../../style/index.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-twilight.min.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/unescaped-markup/prism-unescaped-markup.css"/></head><body><header><a class="name-block" href="/"><div class="name">Marc Farias Jones</div><div class="title">Web Developer</div></a><div class="line"></div><nav><a href="/#articles">Stories</a><a href="/#projects">Projects</a><a href="/#contact">Contact</a></nav></header><main><div class="article"><div class="header-image" style="background-image:url(../../images/articles/pug.jpg)"></div><div class="title"><h1>Build a static site with Pug &amp; Eleventy</h1><div class="attribution"><h3><span class="date">Sat Dec 07 2019</span><span class="author">By Marc Farias Jones</span></h3></div></div><div class="content"><h3>The site that you are reading this article on was created with Eleventy (11ty), using Pug (and markdown) as a templating engine and Sass as a CSS precompliler.</h3>
+<p>That sounds like a lot of stuff! let me break it down for you.</p>
+<h3>Eleventy</h3>
+<p>Eleventy is a static site generator that takes template data in an array of formats and spits out nice, clean static html. Static sites are a super hot trend right now and for good reason. They are really fast because they don't require any server-side logic. They are also easy to build, easy to host, and very flexible.</p>
+<h3>Pug (formerly known as Jade)</h3>
+<p>Pug is an HTML templating engine. It allows you to write your markup in a nicer, more readable way than HTML. It also allows you to inject data into your markup and iterate over arrays of data.</p>
+<p>Eleventy supports most modern HTML templating engines, including:</p>
+<ul>
+<li>Nunjucks</li>
+<li>Liquid</li>
+<li>Handlebars</li>
+<li>Mustache</li>
+<li>EJS</li>
+<li>HAML</li>
+</ul>
+<p>Choosing the right templating engine is typically a matter of taste and those with the best taste usually reach for Pug because of its clean syntax and powerful API.</p>
+<h3>Sass</h3>
+<p>Sass is a CSS precompiler that does for CSS what Pug does for HTML. It allows you to nest selectors, reuse code, and all around make the experience of writing CSS way more enjoyable.</p>
+<h3>&quot;That all sounds amazing, how do I put it all together?&quot;</h3>
+<p>The good news is that it's really simple! In just a few short steps, you can be up and running with Eleventy and building super fast static sites while enjoying the ergonomics of Pug and Sass.</p>
+<h1>Step 1</h1>
+<h3>Start the engine!</h3>
+<p>Create an empty directory for your new site. Open a terminal in that directory and use this command to generate the file structure of your site:</p>
+<pre class="language-bash">
+    <code>
+        npx @11ty/eleventy --serve
+    </code>
+</pre>
+<p>This will make a bunch of gears start spinning as installs the required dependencies. It finishes by firing up a development server with hot reloading. How nice!</p>
+<h1>Step 2</h1>
+<h3>Your first file</h3>
+<p>It's as easy as it sounds. Create a file in the directory called <strong>index.pug</strong>. Eleventy will quickly generate a folder called <strong>_site</strong>, and inside it will be all of your static assets. For now that is just an HTML file name <strong>index.html</strong>.</p>
+<p>Now add some Pug markup to your <strong>index.pug</strong> file. Something like this is fine:</p>
+<pre class="language-pug">
+    <code>
+        &lt;!DOCTYPE html&gt;
+        html
+            head
+                title My Eleventy Pug Site
+            body
+                h1 Woah, cool!
+    </code>
+</pre>
+<p>After you save that file, look in the <strong>/site/index.html</strong> file.</p>
+<p>it should look like this:</p>
+<script type="text/plain" class="language-markup">
+    <!DOCTYPE html><html><head><title>My Eleventy Pug Site</title></head><body><h1>Woah, cool!</h1></body></html>
+</script>
+<p>Yay! Eleventy is compiling your Pug into html.</p>
+<h1>Step 3</h1>
+<h3>Templating</h3>
+<p>Pug is a templating engine so let's do some templating! We want to take the html, head, and body tags and reuse them for all of our pages.</p>
+<p>First create a folder called <strong>_includes</strong> in your root directory. This is where we will keep all of our Pug template files. Create a file in the <strong>_includes</strong> folder and call it <strong>layout.pug</strong>.</p>
+<p>Your file structure should now look like this:</p>
+<ul>
+<li><strong>_includes/</strong>
+<ul>
+<li>layout.pug</li>
+</ul>
+</li>
+<li><strong>_site/</strong>
+<ul>
+<li>index.html</li>
+</ul>
+</li>
+<li>index.pug</li>
+</ul>
+<p>Cut and paste everything <strong>above the H1</strong> from the <strong>index.pug</strong> file into the <strong>layout.pug</strong> file.</p>
+<p>Now we are going to add a script to each of the files that will tell Eleventy to glue them together.</p>
+<p>Add this to the bottom of the <strong>layout.pug</strong> file:</p>
+<pre class="language-pug">
+    <code>
+        &lt;!DOCTYPE html>
+        html
+            head
+                title !{title}
+            body !{ content }
+                //- New Code
+   
+    </code>
+</pre>
+<p>And make your <strong>index.pug</strong> look like this.</p>
+<pre class="language-pug">
+    <code>
+        ---
+        layout: layout.pug
+        title: Home Page
+        ---
+
+        block content
+            h1 Woah, cool!
+    </code>
+</pre>
+<p>What we are doing is telling the <strong>layout.pug</strong> file where to put <strong>content</strong> and then telling the <strong>index.pug</strong> file that it is extending <strong>layout.pug</strong> and then putting its code into a block called <strong>content</strong>.</p>
+<p>We are also passing the variable <strong>title</strong> which the template is using for the document title. This is how we can use the same header for each page but keep unique titles.</p>
+<h3>That part on top of index.pug, with the dashes is called front matter. Eleventy uses front matter to hold data that it uses to compile the static pages.</h3>
+<p>Now we are compiling templates! This saves us from having to maintain the same code in different places. Yay!</p>
+<h1>Step 4</h1>
+<h3>Get some Sass in there</h3>
+<p>Eleventy comes pretty well configured right out of the box, but we need to customize it a bit to get Sass compiling.</p>
+<p>First lets create some new files.</p>
+<p>Create a file in the root directory called <strong>.eleventy.js</strong>. Eleventy will automatically recognize it as it's configuration file.</p>
+<p>Also in the root directory, let's create a folder called <strong>style</strong> and make a file in it called <strong>index.scss</strong>.</p>
+<p>Lastly we need add another folder to hold some custom file-watching logic. let's call this folder <strong>config</strong>, make it in the root directory, and make a file in it called <strong>sass-process.js</strong>.</p>
+<p>Your file structure should now look like this:</p>
+<ul>
+<li><strong>_includes/</strong>
+<ul>
+<li>layout.pug</li>
+</ul>
+</li>
+<li><strong>_site/</strong>
+<ul>
+<li>index.html</li>
+</ul>
+</li>
+<li><strong>config/</strong>
+<ul>
+<li>sass-process.js</li>
+</ul>
+</li>
+<li><strong>style/</strong>
+<ul>
+<li>index.scss</li>
+</ul>
+</li>
+<li>.eleventy.js</li>
+<li>index.pug</li>
+</ul>
+<h3>Configuration</h3>
+<p>In order to get our Sass compiling, we need to implement some custom scripts.</p>
+<p>Let's add this to our <strong>sass-process.js</strong> file:</p>
+<pre class="language-js">
+    <code>
+        const sass = require('sass');
+        const fs = require('fs-extra');
+        const path = require('path');
+
+        module.exports = (scssPath, cssPath) => {
+        // If cssPath directory doesn't exist...
+        if (!fs.existsSync(path.dirname(cssPath))) {
+            // Encapsulate rendered css from scssPath into result variable
+            const result = sass.renderSync({ file: scssPath });
+            // Create cssPath directory recursively
+            fs.mkdir(path.dirname(cssPath), { recursive: true })
+            // Then write result css string to cssPath file
+            .then(() => fs.writeFile(cssPath, result.css.toString()))
+            .catch(error => console.error(error));
+        }
+        // Watch for changes to scssPath directory...
+        fs.watch(path.dirname(scssPath), () => {
+            console.log(`Watching ${path.dirname(scssPath)}...`);
+            // Encapsulate rendered css from scssPath into watchResult variable
+            const watchResult = sass.renderSync({ file: scssPath });
+            // Then write result css string to cssPath file
+            fs.writeFile(cssPath, watchResult.css.toString()).catch(error =>
+            console.error(error)
+            );
+        });
+        };
+    </code>
+</pre>
+<p>and add this script to the <strong>.eleventy.js</strong> file:</p>
+<pre class="language-js">
+    <code>
+        const sass = require('./config/sass-process');
+
+        module.exports = config => {
+            //Watching for modificaions in style directory
+            sass('./style/index.scss', './_site/style/index.css');
+
+        }
+    </code>
+</pre>
+<p>We are using some dependencies now so lets get them installed</p>
+<pre class="language-bash">
+    <code>
+        // bash
+        npm init -y
+        npm i sass fs-extra
+    </code>
+</pre>
+<p>Now restart the server and we should have Sass compiling!</p>
+<p><strong>Don't forget to link the new CSS file in your layout.pug template</strong></p>
+<pre class="language-pug">
+    <code>
+       link(rel="stylesheet", href="../../style/index.css")
+    </code>
+</pre>
+<h3>Now you're ready to start building your amazing static site! Woohoo!</h3>
+<h1>One last thing...</h1>
+<p>You are probably going to want to have images and javascript on your site. Make a folder for each of them in the root directory.</p>
+<ul>
+<li><strong>_includes/</strong>
+<ul>
+<li>layout.pug</li>
+</ul>
+</li>
+<li><strong>_site/</strong>
+<ul>
+<li>index.html</li>
+</ul>
+</li>
+<li><strong>config/</strong>
+<ul>
+<li>sass-process.js</li>
+</ul>
+</li>
+<li><strong>images/</strong>
+<ul>
+<li>feelingCuteMightDeleteLater.JPG</li>
+</ul>
+</li>
+<li><strong>scripts/</strong>
+<ul>
+<li>index.js</li>
+</ul>
+</li>
+<li><strong>style/</strong>
+<ul>
+<li>index.scss</li>
+</ul>
+</li>
+<li>.eleventy.js</li>
+<li>index.pug</li>
+</ul>
+<p>Then we will add a couple one liners to our <strong>.eleventy.js</strong> file:</p>
+<pre class="language-js">
+    <code>
+       const sass = require('./config/sass-process');
+
+    module.exports = config => {
+
+        sass('./style/index.scss', './_site/style/index.css');
+
+        // Copy JS and Images to the _site folder
+        config.addPassthroughCopy("scripts");
+        config.addPassthroughCopy("images");
+    
+    }
+    </code>
+</pre>
+<h3>Bam!</h3>
+<p>Now those folders will be available to your generated pages.</p>
+</div></div></main><footer><div class="inner"><div class="general"><h3>Marc Farias Jones©</h3><p>All Rights Reserved</p></div><div class="social"><a href="https://github.com/marcjfj"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5C64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9c26.4 39.1 77.9 32.5 104 26c5.7-23.5 17.9-44.5 34.7-60.8c-140.6-25.2-199.2-111-199.2-213c0-49.5 16.3-95 48.3-131.7c-20.4-60.5 1.9-112.3 4.9-120c58.1-5.2 118.5 41.6 123.2 45.3c33-8.9 70.7-13.6 112.9-13.6c42.4 0 80.2 4.9 113.5 13.9c11.3-8.6 67.3-48.8 121.3-43.9c2.9 7.7 24.7 58.3 5.5 118c32.4 36.8 48.9 82.7 48.9 132.3c0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9c177.1-59.7 304.6-227 304.6-424.1c0-247.2-200.4-447.3-447.5-447.3z"/><rect x="0" y="0" width="1024" height="1024" fill="rgba(0, 0, 0, 0)" /></svg></a><a href="https://www.linkedin.com/in/marc-farias-jones/"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM349.3 793.7H230.6V411.9h118.7v381.8zm-59.3-434a68.8 68.8 0 1 1 68.8-68.8c-.1 38-30.9 68.8-68.8 68.8zm503.7 434H675.1V608c0-44.3-.8-101.2-61.7-101.2c-61.7 0-71.2 48.2-71.2 98v188.9H423.7V411.9h113.8v52.2h1.6c15.8-30 54.5-61.7 112.3-61.7c120.2 0 142.3 79.1 142.3 181.9v209.4z" /><rect x="0" y="0" width="1024" height="1024" fill="rgba(0, 0, 0, 0)" /></svg></a><a href="https://codepen.io/marcjfj"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M488.1 414.7V303.4L300.9 428l83.6 55.8zm254.1 137.7v-79.8l-59.8 39.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm278 533c0 1.1-.1 2.1-.2 3.1c0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7c-.2.4-.4.8-.5 1.2c-.3.5-.5 1.1-.8 1.6c-.2.4-.4.7-.7 1.1c-.3.5-.7 1-1 1.5c-.3.4-.5.7-.8 1c-.4.4-.8.9-1.2 1.3c-.3.3-.6.6-1 .9c-.4.4-.9.8-1.4 1.1c-.4.3-.7.6-1.1.8c-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4c-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1c-.3-.3-.6-.6-1-.9c-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5c-.2-.4-.5-.7-.7-1.1c-.3-.5-.6-1.1-.8-1.6c-.2-.4-.4-.8-.5-1.2c-.2-.6-.4-1.2-.6-1.7c-.1-.4-.3-.8-.4-1.2c-.2-.7-.3-1.3-.4-2c-.1-.3-.1-.7-.2-1c-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1c.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7c.2-.4.4-.8.5-1.2c.2-.5.5-1.1.8-1.6c.2-.4.4-.7.7-1.1c.6-.9 1.2-1.7 1.8-2.5c.4-.4.8-.9 1.2-1.3c.3-.3.6-.6 1-.9c.4-.4.9-.8 1.3-1.1c.4-.3.7-.6 1.1-.8c.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8l1.4 1.1c.3.3.6.6 1 .9c.4.4.8.8 1.2 1.3c.7.8 1.3 1.6 1.8 2.5c.2.4.5.7.7 1.1c.3.5.6 1 .8 1.6c.2.4.4.8.5 1.2c.2.6.4 1.2.6 1.7c.1.4.3.8.4 1.2c.2.7.3 1.3.4 2c.1.3.1.7.2 1c.1 1 .2 2.1.2 3.1V597zm-254.1 13.3v111.3L723.1 597l-83.6-55.8zM281.8 472.6v79.8l59.8-39.9zM512 456.1l-84.5 56.4l84.5 56.4l84.5-56.4zM723.1 428L535.9 303.4v111.3l103.6 69.1zM384.5 541.2L300.9 597l187.2 124.6V610.3l-103.6-69.1z" /><rect x="0" y="0" width="1024" height="1024" fill="rgba(0, 0, 0, 0)" /></svg></a></div></div></footer><script src="https://cdn.jsdelivr.net/npm/gsap@3.0.2/dist/gsap.min.js"></script><script src="../../js/tv.js"></script><script src="../../js/intro.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script></body></html>

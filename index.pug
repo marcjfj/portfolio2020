@@ -1,0 +1,93 @@
+---
+layout: layout.pug
+title: "Hi Y'all"
+---
+
+block content
+    section
+        .intro-box
+            .left
+                .image
+                    img.marc-head(src="../images/self.png", alt="")
+                .bar
+
+            .right
+                .top-bar
+                    .title #{title}
+                .bottom-bar
+                    .text 
+                        | My name is Marc,
+                        <br>
+                        | I'm a Web Developer at Lifted Logic in Kansas City
+                        <br>
+                        | I like to build applications that are fun and useful.
+
+    section#articles
+        .section-title
+            .title-box
+                .title From the Horses Mouth
+                .tagline Hot takes on tech buzzwords
+            .line
+
+        .blog-block
+            - var post = collections.featured[0];
+            .featured-article
+                .left
+                    .image(style=`background-image: url(../images/articles/${post.data.image})`)
+                .right
+                    h4.date=post.date.toDateString()
+                    h1=post.data.title
+                    h3=post.data.summary
+                    a(href=post.url).button read the full story
+
+
+            .article-thumbs
+                if collections.article
+                    - var arts = collections.article.filter((art) => art.data.tags.indexOf('featured') === -1)
+                    if arts.length > 3
+                        - arts.length = 3
+                    each art in arts
+                        .card
+                            .image
+                            .text
+                                .title=art.data.title
+                                .desc Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem eos commodi tempore enim unde consequatur, itaque delectus odio modi impedit earum vero quibusdam beatae sapiente exercitationem accusamus ex. Porro, beatae.
+                        
+    section#projects
+        .section-title
+            .title-box
+                .title Whacky, Wonky Projects
+                .tagline Courtesy of Trilogy Education...
+            .line
+
+        .project-list
+            - var array2 = [1, 1, 1, 1, 1, 1];
+            each project in collections.project
+                .project-listing
+                    .description
+                        h3 #{project.data.title}
+                    .tv-spot
+                        a(href=project.url).tv
+                            .side.left
+                            .side.top
+                            .side.bottom
+                            .side.front
+                                .screen(style=`background-image: url(../images/projects/${project.data.image})`)
+                                .controls
+                                    .tv-button.small-button
+                                    .tv-button.small-button
+                                    .tv-button.small-button
+                                    .tv-button.power-button
+
+                            .side.back
+                            .side.right
+                
+    section#contact
+        .section-title
+            .title-box
+                .title Lets get in touch
+                .tagline Or not. Whatever.
+            .line
+
+        .contact-box
+            a(href="mailto:marc@fariasjones.com") send me an email

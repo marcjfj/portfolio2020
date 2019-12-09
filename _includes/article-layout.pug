@@ -1,0 +1,18 @@
+---
+layout: layout.pug
+tags: 
+    - article
+//- title: "Hello"
+---
+
+.article
+    .header-image(style=`background-image:url(../../images/articles/${image})`)
+    .title
+        h1=title
+        .attribution
+            h3
+                span.date=page.date.toDateString()
+                span.author By !{author}
+
+    .content !{content}
+    
