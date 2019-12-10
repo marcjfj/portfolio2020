@@ -641,4 +641,9 @@ footer {
             width: 100%;
         }
     }
+    footer {
+        .general {
+            flex-direction: column;
+        }
+    }
 }

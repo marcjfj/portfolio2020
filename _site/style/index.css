@@ -614,4 +614,8 @@ footer svg {
   .project .project-image {
     width: 100%;
   }
+
+  footer .general {
+    flex-direction: column;
+  }
 }
