@@ -12,6 +12,3 @@ module.exports = config => {
    
 }
 
-module.exports = {
-    pathPrefix: "/portfolio2020-build/"
-};

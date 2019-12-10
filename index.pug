@@ -8,7 +8,7 @@ block content
         .intro-box
             .left
                 .image
-                    img.marc-head(src="../images/self.png", alt="")
+                    img.marc-head(src="./images/self.png", alt="")
                 .bar
 
             .right
@@ -33,12 +33,12 @@ block content
             - var post = collections.featured[0];
             .featured-article
                 .left
-                    .image(style=`background-image: url(../images/articles/${post.data.image})`)
+                    .image(style=`background-image: url(./images/articles/${post.data.image})`)
                 .right
                     h4.date=post.date.toDateString()
                     h1=post.data.title
                     h3=post.data.summary
-                    a(href=post.url).button read the full story
+                    a(href=`./${post.url}`).button read the full story
 
 
             .article-thumbs
@@ -67,12 +67,12 @@ block content
                     .description
                         h3 #{project.data.title}
                     .tv-spot
-                        a(href=project.url).tv
+                        a(href=`./${project.url}`).tv
                             .side.left
                             .side.top
                             .side.bottom
                             .side.front
-                                .screen(style=`background-image: url(../images/projects/${project.data.image})`)
+                                .screen(style=`background-image: url('./images/projects/${project.data.image}')`)
                                 .controls
                                     .tv-button.small-button
                                     .tv-button.small-button

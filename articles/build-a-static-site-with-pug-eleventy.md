@@ -205,11 +205,11 @@ and add this script to the **.eleventy.js** file:
 
 <pre class="language-js">
     <code>
-        const sass = require('./config/sass-process');
+        const sass = require('/config/sass-process');
 
         module.exports = config => {
             //Watching for modificaions in style directory
-            sass('./style/index.scss', './_site/style/index.css');
+            sass('/style/index.scss', '/_site/style/index.css');
 
         }
     </code>
@@ -231,7 +231,7 @@ Now restart the server and we should have Sass compiling!
 
 <pre class="language-pug">
     <code>
-       link(rel="stylesheet", href="../../style/index.css")
+       link(rel="stylesheet", href="/style/index.css")
     </code>
 </pre>
 
@@ -260,11 +260,11 @@ Then we will add a couple one liners to our **.eleventy.js** file:
 
 <pre class="language-js">
     <code>
-       const sass = require('./config/sass-process');
+       const sass = require('/config/sass-process');
 
     module.exports = config => {
 
-        sass('./style/index.scss', './_site/style/index.css');
+        sass('/style/index.scss', '/_site/style/index.css');
 
         // Copy JS and Images to the _site folder
         config.addPassthroughCopy("scripts");
