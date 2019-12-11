@@ -16,7 +16,9 @@ layout: layout.pug
         p=tech
 
         .links
-            a(href=demo).button Demo
-            a(href=github).button GitHub
+            if demo
+                a(href=demo).button Demo
+            if github
+                a(href=github).button GitHub
 
     
