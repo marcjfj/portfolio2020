@@ -55,4 +55,43 @@ if (head) {
     gsap.to(email, { x: 0 });
     gsap.to(email, { y: 0 });
   });
+
+  const sectionTitle = document.querySelectorAll('.section-title');
+  sectionTitle.forEach(title => {
+    // init controller
+    var controller = new ScrollMagic.Controller();
+    const titleHead = title.querySelector('.title');
+    const titleTag = title.querySelector('.tagline');
+    const titleLine = title.querySelector('.line');
+    console.log('made it');
+    // create a scene
+    const secFade = gsap.timeline({});
+    const fadeIn = secFade
+      .to(titleHead, { y: 0, opacity: 1, duration: 0.2, ease: 'Power4.out' })
+      .to(titleTag, { y: 0, opacity: 1, duration: 0.2, ease: 'Power4.out' })
+      .to(
+        titleLine,
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.2,
+          ease: 'Power4.out',
+        },
+        '-=.3'
+      );
+    new ScrollMagic.Scene({
+      triggerElement: title,
+      offset: -50, // start this scene after scrolling for 50px
+    })
+      .setTween(fadeIn)
+      .addTo(controller); // assign the scene to the controller
+  });
 }
+
+const headerBox = document.querySelectorAll('header .name-block div');
+const headerLine = document.querySelectorAll('header .line');
+const headerFade = gsap.timeline({});
+const headerFadePlay = headerFade
+  .to(headerBox, { opacity: 1, y: 0, stagger: { amount: 0.2 } }, 0.2)
+  .to(headerLine, { scaleX: 1 }, '-=0.2')
+  .to('header nav a', { opacity: 1, x: 0, stagger: { amount: 0.2 } }, '-=0.2');

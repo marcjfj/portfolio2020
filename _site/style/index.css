@@ -38,6 +38,8 @@ header nav a {
   text-decoration: none;
   margin-right: 10px;
   padding: 5px;
+  opacity: 0;
+  transform: translateX(-50px);
 }
 header nav a:hover {
   color: #353030;
@@ -56,17 +58,23 @@ header .name {
   text-transform: uppercase;
   white-space: nowrap;
   line-height: 1.2;
+  opacity: 0;
+  transform: translateY(100px);
 }
 header .title {
   color: #b3a87d;
   font-weight: 700;
   font-style: italic;
   font-size: 21px;
+  opacity: 0;
+  transform: translateY(100px);
 }
 header .line {
   border-bottom: 1px solid #b3a87d;
   flex-basis: 100%;
   margin: 15px 20px;
+  transform-origin: 0 0;
+  transform: scaleX(0);
 }
 
 main {
@@ -191,15 +199,21 @@ section {
   line-height: 1.3;
   white-space: nowrap;
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(100px);
 }
 .section-title .tagline {
   color: #b3a87d;
+  opacity: 0;
+  transform: translateY(100px);
 }
 .section-title .line {
   border-bottom: 1px solid #b3a87d;
   margin: 20px;
   flex-basis: 100%;
   margin-top: 15px;
+  transform-origin: 0% 0%;
+  transform: scaleX(0);
 }
 
 .blog-block .featured-article {
