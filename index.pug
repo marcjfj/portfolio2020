@@ -1,6 +1,6 @@
 ---
 layout: layout.pug
-title: "Hi Y'all"
+title: "Hello"
 ---
 
 block content
@@ -8,7 +8,7 @@ block content
         .intro-box
             .left
                 .image
-                    img.marc-head(src="./images/self.png", alt="")
+                    img.marc-head(src="/images/self.png", alt="")
                 .bar
 
             .right
@@ -67,12 +67,12 @@ block content
                     .description
                         h3 #{project.data.title}
                     .tv-spot
-                        a(href=`./${project.url}`).tv
+                        a(href=`${project.url}`).tv
                             .side.left
                             .side.top
                             .side.bottom
                             .side.front
-                                .screen(style=`background-image: url('./images/projects/${project.data.image}')`)
+                                .screen(style=`background-image: url('/images/projects/${project.data.image}')`)
                                 .controls
                                     .tv-button.small-button
                                     .tv-button.small-button
@@ -91,3 +91,6 @@ block content
 
         .contact-box
             a(href="mailto:marc@fariasjones.com") send me an email
+
+
+    

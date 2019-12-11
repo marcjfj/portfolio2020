@@ -168,7 +168,7 @@ Your file structure should now look like this:
 
 In order to get our Sass compiling, we need to implement some custom scripts.
 
-Let's add this to our **sass-process.js** file:
+Let's add this script from [Mathieu Hout](https://dev.to/mathieuhuot/processing-sass-with-11ty-5a09) to our **sass-process.js** file:
 
 <pre class="language-js">
     <code>
