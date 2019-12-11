@@ -642,8 +642,25 @@ footer {
         }
     }
     footer {
+        h3 {
+            margin: 5px;
+        }
+        p {
+            margin: 5px auto;
+        }
+        .inner {
+            flex-direction: column;
+        }
         .general {
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .social {
+            margin: 0;
+            a {
+                margin: 5px 10px;
+            }
         }
     }
 }

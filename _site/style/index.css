@@ -615,7 +615,24 @@ footer svg {
     width: 100%;
   }
 
+  footer h3 {
+    margin: 5px;
+  }
+  footer p {
+    margin: 5px auto;
+  }
+  footer .inner {
+    flex-direction: column;
+  }
   footer .general {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  footer .social {
+    margin: 0;
+  }
+  footer .social a {
+    margin: 5px 10px;
   }
 }
